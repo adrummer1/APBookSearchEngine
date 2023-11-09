@@ -35,7 +35,7 @@ const LoginForm = () => {
         variables: { ...userFormData },
       });
 
-      if (!data.ok) {
+      if (!data.login) {
         throw new Error('something went wrong!');
       }
 
