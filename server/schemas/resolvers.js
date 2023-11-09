@@ -9,7 +9,6 @@ const resolvers = {
                 const userData = await User
                     .findOne({ _id: context.user._id })
                     .select("-__v -password")
-                    .populate("books");
                 
                 return userData;
             };
@@ -34,13 +33,18 @@ const resolvers = {
         },
         
         addUser: async (parent, args) => {
-            const user = await User.create(args);
-            const token = signToken(user);
-
-            return { token, user };
+            try {
+                const user = await User.create(args);
+                const token = signToken(user);
+                return { token, user };
+            } catch (err) {
+                console.log(err);
+                return null
+            }
         },
 
         saveBook: async (parent, { bookData }, context) => {
+            console.log(context.user)
             if (context.user) {
                 const updatedUser = await User
                     .findOneAndUpdate(
@@ -48,7 +52,6 @@ const resolvers = {
                         { $addToSet: { savedBooks: bookData } },
                         { new: true },
                     )
-                    .populate("books");
                 return updatedUser;
             };
             throw new AuthenticationError("You must be logged in to save books!");

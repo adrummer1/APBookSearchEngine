@@ -1,3 +1,5 @@
+/* eslint-disable no-undef */
+/* eslint-disable no-unused-vars */
 import { useState, useEffect } from 'react';
 import {
   Container,
@@ -10,7 +12,7 @@ import {
 
 import Auth from '../utils/auth';
 import { useMutation } from '@apollo/client';
-import { saveBook, searchGoogleBooks } from '../utils/API';
+import { searchGoogleBooks } from '../utils/API';
 import { saveBookIds, getSavedBookIds } from '../utils/localStorage';
 import { SAVE_BOOK } from '../utils/mutations';
 
@@ -77,7 +79,7 @@ const SearchBooks = () => {
 
     try {
       const { data } = await saveBook({
-        variables: { bookData, bookToSave, token },
+        variables: { bookData: bookToSave, token },
       });
 
       if (!response.ok) {
