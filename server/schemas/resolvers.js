@@ -3,6 +3,7 @@ const { User } = require('../models');
 const { signToken } = require('../utils/auth');
 
 const resolvers = {
+    // Set query resolver for "me"
     Query: {
         me: async (parent, args, context) => {
             if (context.user) {
@@ -16,6 +17,7 @@ const resolvers = {
         },
     }, 
 
+    // Set mutations for login, adding user, save book and remove book   
     Mutation: {
         login: async (parent, { email, password }) => {
             const user = await User.findOne({ email });

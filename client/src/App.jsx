@@ -29,6 +29,7 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
+// Creating Apollo provider and wrapping round Navbar and Outlet
 function App() {
   return (
     <ApolloProvider client={client}>
